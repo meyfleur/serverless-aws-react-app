@@ -1,4 +1,12 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# serverless-aws-react-app
+
+Building Serverless React Applications with AWS Amplify by Nader Dabit
+
+https://github.com/dabit3/aws-amplify-workshop-react
+
+### requirements
+Install at least Node.js version 8.x or greater and npm version 5.x or greater
+Create an AWS account
 
 ## Available Scripts
 
