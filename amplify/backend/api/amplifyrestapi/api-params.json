@@ -1,0 +1,44 @@
+{
+    "paths": [
+        {
+            "name": "/pets",
+            "lambdaFunction": "amplifyrestapilambda",
+            "privacy": {
+                "private": true,
+                "auth": "rw"
+            }
+        },
+        {
+            "name": "/people",
+            "lambdaFunction": "amplifyrestapilambda",
+            "privacy": {
+                "private": true,
+                "auth": "rw"
+            }
+        }
+    ],
+    "resourceName": "amplifyrestapi",
+    "apiName": "amplifyrestapi",
+    "functionArns": [
+        {
+            "lambdaFunction": "amplifyrestapilambda"
+        }
+    ],
+    "privacy": {
+        "auth": 2,
+        "unauth": 0,
+        "authRoleName": "amplifyreactapp-20181203095937-authRole",
+        "unAuthRoleName": "amplifyreactapp-20181203095937-unauthRole"
+    },
+    "dependsOn": [
+        {
+            "category": "function",
+            "resourceName": "amplifyrestapilambda",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        }
+    ],
+    "uuid": "f861a0b8"
+}

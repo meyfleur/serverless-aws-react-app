@@ -1,0 +1,112 @@
+type Pet {
+  id: ID!
+  name: String!
+  description: String
+}
+
+enum ModelSortDirection {
+  ASC
+  DESC
+}
+
+type ModelPetConnection {
+  items: [Pet]
+  nextToken: String
+}
+
+input ModelStringFilterInput {
+  ne: String
+  eq: String
+  le: String
+  lt: String
+  ge: String
+  gt: String
+  contains: String
+  notContains: String
+  between: [String]
+  beginsWith: String
+}
+
+input ModelIDFilterInput {
+  ne: ID
+  eq: ID
+  le: ID
+  lt: ID
+  ge: ID
+  gt: ID
+  contains: ID
+  notContains: ID
+  between: [ID]
+  beginsWith: ID
+}
+
+input ModelIntFilterInput {
+  ne: Int
+  eq: Int
+  le: Int
+  lt: Int
+  ge: Int
+  gt: Int
+  contains: Int
+  notContains: Int
+  between: [Int]
+}
+
+input ModelFloatFilterInput {
+  ne: Float
+  eq: Float
+  le: Float
+  lt: Float
+  ge: Float
+  gt: Float
+  contains: Float
+  notContains: Float
+  between: [Float]
+}
+
+input ModelBooleanFilterInput {
+  ne: Boolean
+  eq: Boolean
+}
+
+input ModelPetFilterInput {
+  id: ModelIDFilterInput
+  name: ModelStringFilterInput
+  description: ModelStringFilterInput
+  and: [ModelPetFilterInput]
+  or: [ModelPetFilterInput]
+  not: ModelPetFilterInput
+}
+
+type Query {
+  getPet(id: ID!): Pet
+  listPets(filter: ModelPetFilterInput, limit: Int, nextToken: String): ModelPetConnection
+}
+
+input CreatePetInput {
+  id: ID
+  name: String!
+  description: String
+}
+
+input UpdatePetInput {
+  id: ID!
+  name: String
+  description: String
+}
+
+input DeletePetInput {
+  id: ID
+}
+
+type Mutation {
+  createPet(input: CreatePetInput!): Pet
+  updatePet(input: UpdatePetInput!): Pet
+  deletePet(input: DeletePetInput!): Pet
+}
+
+type Subscription {
+  onCreatePet: Pet @aws_subscribe(mutations: ["createPet"])
+  onUpdatePet: Pet @aws_subscribe(mutations: ["updatePet"])
+  onDeletePet: Pet @aws_subscribe(mutations: ["deletePet"])
+}

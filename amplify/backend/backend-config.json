@@ -1,0 +1,39 @@
+{
+	"auth": {
+		"cognitod5e74046": {
+			"service": "Cognito",
+			"providerPlugin": "awscloudformation"
+		}
+	},
+	"function": {
+		"amplifyrestapilambda": {
+			"service": "Lambda",
+			"providerPlugin": "awscloudformation",
+			"build": true,
+			"dependsOn": []
+		}
+	},
+	"api": {
+		"amplifyrestapi": {
+			"service": "API Gateway",
+			"providerPlugin": "awscloudformation",
+			"dependsOn": [
+				{
+					"category": "function",
+					"resourceName": "amplifyrestapilambda",
+					"attributes": [
+						"Name",
+						"Arn"
+					]
+				}
+			]
+		},
+		"GraphQLPets": {
+			"service": "AppSync",
+			"providerPlugin": "awscloudformation",
+			"output": {
+				"securityType": "API_KEY"
+			}
+		}
+	}
+}
