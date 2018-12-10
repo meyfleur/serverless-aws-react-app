@@ -14,26 +14,25 @@
 		}
 	},
 	"api": {
-		"amplifyrestapi": {
-			"service": "API Gateway",
-			"providerPlugin": "awscloudformation",
-			"dependsOn": [
-				{
-					"category": "function",
-					"resourceName": "amplifyrestapilambda",
-					"attributes": [
-						"Name",
-						"Arn"
-					]
-				}
-			]
-		},
 		"GraphQLPets": {
 			"service": "AppSync",
 			"providerPlugin": "awscloudformation",
 			"output": {
-				"securityType": "API_KEY"
+				"securityType": "AMAZON_COGNITO_USER_POOLS"
 			}
+		}
+	},
+	"storage": {
+		"amplifystorage": {
+			"service": "S3",
+			"providerPlugin": "awscloudformation"
+		}
+	},
+	"hosting": {},
+	"analytics": {
+		"amplifyanalytics": {
+			"service": "Pinpoint",
+			"providerPlugin": "awscloudformation"
 		}
 	}
 }

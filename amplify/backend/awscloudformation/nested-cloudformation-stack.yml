@@ -81,10 +81,10 @@
 		"authcognitod5e74046": {
 			"Type": "AWS::CloudFormation::Stack",
 			"Properties": {
-				"TemplateURL": "https://s3.amazonaws.com/amplifyreactapp-20181203095937-deployment/amplify-cfn-templates/auth/cognitod5e74046-cloudformation-template.yml",
+				"TemplateURL": "https://s3.amazonaws.com/amplifyreactapp-20181203125131-deployment/amplify-cfn-templates/auth/cognitod5e74046-cloudformation-template.yml",
 				"Parameters": {
 					"identityPoolName": "cognitod5e74046_identitypool_d5e74046",
-					"allowUnauthenticatedIdentities": false,
+					"allowUnauthenticatedIdentities": true,
 					"thirdPartyAuth": false,
 					"lambdaLogPolicy": "cognitod5e74046_lambda_log_policy",
 					"openIdLambdaRoleName": "cognitod5e74046_openid_lambda_role",
@@ -139,57 +139,93 @@
 							"Arn"
 						]
 					},
-					"env": "dev"
+					"env": "devtwo"
 				}
 			}
 		},
 		"functionamplifyrestapilambda": {
 			"Type": "AWS::CloudFormation::Stack",
 			"Properties": {
-				"TemplateURL": "https://s3.amazonaws.com/amplifyreactapp-20181203095937-deployment/amplify-cfn-templates/function/amplifyrestapilambda-cloudformation-template.json",
+				"TemplateURL": "https://s3.amazonaws.com/amplifyreactapp-20181203125131-deployment/amplify-cfn-templates/function/amplifyrestapilambda-cloudformation-template.json",
 				"Parameters": {
-					"env": "dev"
-				}
-			}
-		},
-		"apiamplifyrestapi": {
-			"Type": "AWS::CloudFormation::Stack",
-			"Properties": {
-				"TemplateURL": "https://s3.amazonaws.com/amplifyreactapp-20181203095937-deployment/amplify-cfn-templates/api/amplifyrestapi-cloudformation-template.json",
-				"Parameters": {
-					"authRoleName": {
-						"Ref": "AuthRoleName"
-					},
-					"unauthRoleName": {
-						"Ref": "UnauthRoleName"
-					},
-					"functionamplifyrestapilambdaName": {
-						"Fn::GetAtt": [
-							"functionamplifyrestapilambda",
-							"Outputs.Name"
-						]
-					},
-					"functionamplifyrestapilambdaArn": {
-						"Fn::GetAtt": [
-							"functionamplifyrestapilambda",
-							"Outputs.Arn"
-						]
-					},
-					"env": "dev"
+					"env": "devtwo"
 				}
 			}
 		},
 		"apiGraphQLPets": {
 			"Type": "AWS::CloudFormation::Stack",
 			"Properties": {
-				"TemplateURL": "https://s3.amazonaws.com/amplifyreactapp-20181203095937-deployment/amplify-cfn-templates/api/cloudformation-template.json",
+				"TemplateURL": "https://s3.amazonaws.com/amplifyreactapp-20181203125131-deployment/amplify-cfn-templates/api/cloudformation-template.json",
 				"Parameters": {
 					"AppSyncApiName": "GraphQLPets",
-					"schemaGraphql": "s3://amplifyreactapp-20181203095937-deployment/amplify-appsync-files/schema.graphql.1543832813579",
-					"ResolverBucket": "amplifyreactapp-20181203095937-deployment",
+					"AuthCognitoUserPoolId": {
+						"Fn::GetAtt": [
+							"authcognitod5e74046",
+							"Outputs.UserPoolId"
+						]
+					},
+					"schemaGraphql": "s3://amplifyreactapp-20181203125131-deployment/amplify-appsync-files/schema.graphql.1543847956781",
+					"ResolverBucket": "amplifyreactapp-20181203125131-deployment",
 					"ResolverRootKey": "amplify-appsync-files",
-					"DeploymentTimestamp": "1543832813579",
-					"env": "dev"
+					"DeploymentTimestamp": "1543847956781",
+					"env": "devtwo"
+				}
+			}
+		},
+		"storageamplifystorage": {
+			"Type": "AWS::CloudFormation::Stack",
+			"Properties": {
+				"TemplateURL": "https://s3.amazonaws.com/amplifyreactapp-20181203125131-deployment/amplify-cfn-templates/storage/s3-cloudformation-template.json",
+				"Parameters": {
+					"bucketName": "amplifyreactapp0b6ad90252ba46879c15784a06f21574",
+					"authPolicyName": "s3_amplify_9ccc2889",
+					"unauthPolicyName": "s3_amplify_9ccc2889",
+					"authRoleName": {
+						"Ref": "AuthRoleName"
+					},
+					"unauthRoleName": {
+						"Ref": "UnauthRoleName"
+					},
+					"authPermissions": "rw",
+					"unauthPermissions": "",
+					"env": "devtwo"
+				}
+			}
+		},
+		"hostingS3AndCloudFront": {
+			"Type": "AWS::CloudFormation::Stack",
+			"Properties": {
+				"TemplateURL": "https://s3.amazonaws.com/amplifyreactapp-20181203125131-deployment/amplify-cfn-templates/hosting/template.json",
+				"Parameters": {
+					"bucketName": "amplifyreactapp-20181203150658--hostingbucket",
+					"env": "devtwo"
+				}
+			}
+		},
+		"analyticsamplifyanalytics": {
+			"Type": "AWS::CloudFormation::Stack",
+			"Properties": {
+				"TemplateURL": "https://s3.amazonaws.com/amplifyreactapp-20181203125131-deployment/amplify-cfn-templates/analytics/pinpoint-cloudformation-template.json",
+				"Parameters": {
+					"appName": "amplifyanalytics",
+					"roleName": "pinpointLambdaRole64f76cde",
+					"cloudWatchPolicyName": "cloudWatchPolicy64f76cde",
+					"pinpointPolicyName": "pinpointPolicy64f76cde",
+					"authPolicyName": "pinpoint_amplify_64f76cde",
+					"unauthPolicyName": "pinpoint_amplify_64f76cde",
+					"authRoleName": {
+						"Ref": "AuthRoleName"
+					},
+					"unauthRoleName": {
+						"Ref": "UnauthRoleName"
+					},
+					"authRoleArn": {
+						"Fn::GetAtt": [
+							"AuthRole",
+							"Arn"
+						]
+					},
+					"env": "devtwo"
 				}
 			}
 		}

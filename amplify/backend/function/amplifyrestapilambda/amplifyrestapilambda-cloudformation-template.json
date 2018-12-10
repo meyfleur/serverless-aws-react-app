@@ -55,8 +55,8 @@
 				"Runtime": "nodejs8.10",
 				"Timeout": "25",
 				"Code": {
-					"S3Bucket": "amplifyreactapp-20181203095937-deployment",
-					"S3Key": "amplify-builds/amplifyrestapilambda-1543831621-latest-build.zip"
+					"S3Bucket": "amplifyreactapp-20181203125131-deployment",
+					"S3Key": "amplify-builds/amplifyrestapilambda-1543847955-latest-build.zip"
 				}
 			}
 		},

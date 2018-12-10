@@ -2,6 +2,7 @@ type Pet {
   id: ID!
   name: String!
   description: String
+  owner: String
 }
 
 enum ModelSortDirection {
@@ -73,6 +74,7 @@ input ModelPetFilterInput {
   id: ModelIDFilterInput
   name: ModelStringFilterInput
   description: ModelStringFilterInput
+  owner: ModelStringFilterInput
   and: [ModelPetFilterInput]
   or: [ModelPetFilterInput]
   not: ModelPetFilterInput
@@ -87,12 +89,14 @@ input CreatePetInput {
   id: ID
   name: String!
   description: String
+  owner: String
 }
 
 input UpdatePetInput {
   id: ID!
   name: String
   description: String
+  owner: String
 }
 
 input DeletePetInput {
